@@ -39,3 +39,43 @@ hist(inp[,3], main = "Histograma de banano", xlab = "Hidrologia", ylab = "Frecue
 ![image](https://user-images.githubusercontent.com/82825982/119065454-ce2ba100-b99a-11eb-8e57-a84d43fb0d8c.png)
 
 ![image](https://user-images.githubusercontent.com/82825982/119065419-b3592c80-b99a-11eb-9608-0b1177459902.png)
+
+### Se renombran los datos importados
+```R
+names(inp) <- c("fecha","estrella", "banano")
+attach(inp)
+```
+_Utilizamos la funcion ```attatch``` para definir los nombres de los ríos_  
+
+### Graficos los datos de estrella
+```R
+plot(estrella, xlab = "Puntos historicos")
+```
+![image](https://user-images.githubusercontent.com/82825982/119066403-eef4f600-b99c-11eb-8606-2df0c9fe2288.png)
+
+### Procedemoa a tratar los datos para generar varias reprecentaciones
+```R
+Tempdate <- strptime(inp[,1], format= "%d/%m/%Y")
+MAQ_estrella <- tapply(estrella, format(Tempdate, format= "%Y"), FUN=sum)
+MAQ_banano <- tapply(banano, format(Tempdate, format= "%Y"), FUN=sum)
+
+write.csv(rbind(MAQ_estrella,MAQ_banano),file="MAQ.csv")
+```
+_Con la funcion ```strptime``` especificamos el formato en que se encuetra la fecha de los datos._  
+_La funcion ```tapply``` y sus parametros nos permite sumar los datos y agruparlos por año._  
+_Por ultimo, combinamos los datos agrupados de banano y estrella utilizando ```rbind``` y los guardamos en un archivo **csv**._
+
+#### Hidrografia del rio Banano vs Estrella
+```R
+plot(MAQ_banano, ylim=c(100,3000), xlab = "Años", ylab = "Hidrografia", main = "Rio Banano vr Estrella")
+lines(MAQ_estrella, col=2)
+```
+![image](https://user-images.githubusercontent.com/82825982/119068223-f74f3000-b9a0-11eb-845b-12ec3d430254.png)
+
+### Agrupamos los datos por meses del año
+```R
+plot(MAQ_banano, ylim=c(100,3000), xlab = "Meses", ylab = "Hidrografia", main = "Rio Banano vs Estrella")
+lines(MAQ_estrella, col=2)
+```
+![image](https://user-images.githubusercontent.com/82825982/119068288-1fd72a00-b9a1-11eb-887f-801ef3030858.png)
+
