@@ -79,3 +79,32 @@ lines(MAQ_estrella, col=2)
 ```
 ![image](https://user-images.githubusercontent.com/82825982/119068288-1fd72a00-b9a1-11eb-887f-801ef3030858.png)
 
+### Analisis de correlación 
+```R
+conrip <- cor(inp[,2:3], method = "spearman")
+conrip
+plot(estrella,banano, main = "Correlación de datos entre ambos ríos")
+```
+_Con la funcion ```conrip``` generaramos una correlación entre los datos en estudio sobre los riós __Banano y Estrella__._  
+
+![image](https://user-images.githubusercontent.com/82825982/119069193-e8697d00-b9a2-11eb-9db1-0059592b652e.png)  
+
+### Graficos de correlaciónes específicas ríos Banano ~ Estrella
+```R 
+inp.lm <- lm(inp[,2] ~ inp[,3], data=inp)
+summary(inp.lm)
+plot(inp.lm, sub.caption = "Banano ~ Estrella")
+```
+_Luego de realizar un gráfico de correlación general se procede a identificar las correlación de acuerdo a los datos __residuales vs agrupados__, __Normal Q-Q__ Y __Escalas de localización__ para obtener una visualización más detalla_
+
+#### Residual VS Equipado  
+![image](https://user-images.githubusercontent.com/82825982/119070121-a2151d80-b9a4-11eb-9eff-4637ed326ec4.png)
+
+#### Normal Q-Q  
+![image](https://user-images.githubusercontent.com/82825982/119070170-b527ed80-b9a4-11eb-98f7-53862ef1d4be.png)
+
+#### Escala de localización 
+![image](https://user-images.githubusercontent.com/82825982/119070238-d557ac80-b9a4-11eb-8a1a-be1055186da4.png)
+
+
+
